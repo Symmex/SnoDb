@@ -10,7 +10,7 @@ Public Class SnoCollection(Of T, TId)
     Public ReadOnly Property Name As String Implements ISnoCollection.Name
     Private ReadOnly Property IdSelector As Func(Of T, TId)
     Private ReadOnly Property Items As ConcurrentDictionary(Of TId, T) = New ConcurrentDictionary(Of TId, T)()
-    Private ReadOnly Property SaveQueue As ConcurrentQueue(Of ISaveAction) = New ConcurrentQueue(Of ISaveAction)()
+    Private ReadOnly Property SaveActions As ConcurrentDictionary(Of TId, ISaveAction) = New ConcurrentDictionary(Of TId, ISaveAction)()
 
     Public Sub New(database As SnoDatabase, name As String, idSelector As Func(Of T, TId))
         Me.Database = database
@@ -23,7 +23,7 @@ Public Class SnoCollection(Of T, TId)
         Me.Items(id) = item
 
         Dim itemPath = Me.GetItemPath(item)
-        Me.SaveQueue.Enqueue(New AddOrReplaceSaveAction(itemPath, item))
+        Me.SaveActions(id) = New AddOrReplaceSaveAction(itemPath, item)
     End Sub
 
     Public Sub Remove(item As T) Implements ISnoCollection(Of T).Remove
@@ -31,7 +31,7 @@ Public Class SnoCollection(Of T, TId)
         Me.Items.TryRemove(id, Nothing)
 
         Dim itemPath = Me.GetItemPath(item)
-        Me.SaveQueue.Enqueue(New RemoveSaveAction(itemPath))
+        Me.SaveActions(id) = New RemoveSaveAction(itemPath)
     End Sub
 
     Public Function Query() As IQueryable(Of T) Implements ISnoCollection(Of T).Query
@@ -58,10 +58,9 @@ Public Class SnoCollection(Of T, TId)
     End Function
 
     Public Async Function SaveAsync(archive As ZipArchive) As Task Implements ISnoCollection.SaveAsync
-        Dim saveAction As ISaveAction = Nothing
-        While Me.SaveQueue.TryDequeue(saveAction)
+        For Each saveAction In Me.SaveActions.Values
             Await saveAction.SaveAsync(archive)
-        End While
+        Next
     End Function
 
 End Class
