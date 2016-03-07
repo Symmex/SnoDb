@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SnoDb", "SnoDb\SnoDb.vbproj", "{31A21814-F7D2-4C12-A81F-0198FE20172D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnoDb", "SnoDb\SnoDb.csproj", "{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{31A21814-F7D2-4C12-A81F-0198FE20172D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31A21814-F7D2-4C12-A81F-0198FE20172D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31A21814-F7D2-4C12-A81F-0198FE20172D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31A21814-F7D2-4C12-A81F-0198FE20172D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
