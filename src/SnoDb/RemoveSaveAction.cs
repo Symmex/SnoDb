@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
+﻿using System.IO.Compression;
 using System.Threading.Tasks;
 
 namespace SnoDb
 {
     public class RemoveSaveAction : ISaveAction
     {
-        #region Properties
         public string ItemPath { get; }
-        #endregion
-        #region Constructor
+
         public RemoveSaveAction(string itemPath)
         {
             ItemPath = itemPath;
@@ -26,8 +20,5 @@ namespace SnoDb
 
             return Task.CompletedTask;
         }
-        #endregion
-
-
     }
 }

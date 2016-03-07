@@ -11,20 +11,15 @@ namespace SnoDb
     /// </summary>
     public interface ISnowCollection
     {
-        #region Properties
-        SnoDatabase Database { get;  }
+        SnoDatabase Database { get; }
         string Name { get; }
 
-        #endregion
-
-        #region Methods
         Task LoadAsync(IEnumerable<ZipArchiveEntry> entries);
         Task SaveAsync(ZipArchive archive);
-        #endregion
     }
 
     /// <summary>
-    /// Generic version if ISnoCollection
+    /// Generic version of ISnoCollection
     /// </summary>
     /// <typeparam name="t"></typeparam>
     public interface ISnoCollection<T> : ISnowCollection
@@ -33,7 +28,6 @@ namespace SnoDb
         void Remove(T item);
         IQueryable<T> Query();
         string GetItemPath(T item);
-       
     }
 
 }
