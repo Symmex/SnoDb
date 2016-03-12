@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.IO;
 using Ionic.Zip;
 
-namespace SnoDb
+namespace Symmex.SnoDb
 {
     public class SnoDatabase
     {

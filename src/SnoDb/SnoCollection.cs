@@ -6,7 +6,7 @@ using System.Collections.Concurrent;
 using Newtonsoft.Json;
 using Ionic.Zip;
 
-namespace SnoDb
+namespace Symmex.SnoDb
 {
     public class SnoCollection<T, TId> : ISnoCollection<T>
     {

@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Ionic.Zip;
 
-namespace SnoDb
+namespace Symmex.SnoDb
 {
     /// <summary>
     /// Handles operations to add or replace a new entry in the zip archive  

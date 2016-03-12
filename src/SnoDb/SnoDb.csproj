@@ -7,7 +7,7 @@
     <ProjectGuid>{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SnoDb</RootNamespace>
+    <RootNamespace>Symmex.SnoDb</RootNamespace>
     <AssemblyName>SnoDb</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

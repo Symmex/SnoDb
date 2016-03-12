@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Ionic.Zip;
 
-namespace SnoDb
+namespace Symmex.SnoDb
 {
     /// <summary>
     /// Non generic version of ISnoCollection

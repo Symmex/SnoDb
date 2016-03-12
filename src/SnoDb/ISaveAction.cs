@@ -1,6 +1,6 @@
 ﻿using Ionic.Zip;
 
-namespace SnoDb
+namespace Symmex.SnoDb
 {
     /// <summary>
     /// used for all save actions
