@@ -6,7 +6,7 @@ using Ionic.Zip;
 
 namespace Symmex.SnoDb
 {
-    public class SnoDatabase
+    public class SnoDatabase : IDisposable
     {
         public string Name { get; }
         public string DatabaseDirectory { get; }
@@ -87,5 +87,26 @@ namespace Symmex.SnoDb
                 archive.Save();
             }
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Save();
+                }
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
     }
 }
