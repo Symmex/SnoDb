@@ -52,6 +52,7 @@
     <Compile Include="RemoveSaveAction.cs" />
     <Compile Include="SnoCollection.cs" />
     <Compile Include="SnoDatabase.cs" />
+    <Compile Include="SnoDbConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
