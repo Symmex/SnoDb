@@ -83,6 +83,8 @@ namespace SnoDb
                 {
                     collection.Save(archive);
                 }
+
+                archive.Save();
             }
         }
     }

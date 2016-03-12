@@ -13,7 +13,8 @@ namespace SnoDb
 
         public void Save(ZipFile archive)
         {
-            archive.RemoveEntry(ItemPath);
+            if(archive.ContainsEntry(ItemPath))
+                archive.RemoveEntry(ItemPath);
         }
     }
 }
