@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.IO.Compression;
-using System.Threading.Tasks;
+using Ionic.Zip;
 
 namespace SnoDb
 {
@@ -14,8 +12,8 @@ namespace SnoDb
         SnoDatabase Database { get; }
         string Name { get; }
 
-        Task LoadAsync(IEnumerable<ZipArchiveEntry> entries);
-        Task SaveAsync(ZipArchive archive);
+        void Load(IEnumerable<ZipEntry> entries);
+        void Save(ZipFile archive);
     }
 
     /// <summary>

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.IO;
-using System.IO.Compression;
+using Ionic.Zip;
 
 namespace SnoDb
 {
@@ -50,18 +49,18 @@ namespace SnoDb
             return (ISnoCollection<T>)collection;
         }
 
-        public async Task LoadAsync()
+        public void Load()
         {
             if (!File.Exists(ArchivePath))
             {
                 return;
             }
 
-            using (var archive = ZipFile.Open(ArchivePath, ZipArchiveMode.Read))
+            using (var archive = new ZipFile(ArchivePath))
             {
                 var entriesByCollection = (from entry in archive.Entries
-                                           let separatorIndex = entry.FullName.IndexOf('/')
-                                           let collectionName = entry.FullName.Substring(0, separatorIndex)
+                                           let separatorIndex = entry.FileName.IndexOf('/')
+                                           let collectionName = entry.FileName.Substring(0, separatorIndex)
                                            group entry by collectionName into g
                                            select new { CollectionName = g.Key, Entries = g.ToList() });
 
@@ -70,19 +69,19 @@ namespace SnoDb
                     ISnowCollection currentCollection;
                     if (Collections.TryGetValue(collectionEntries.CollectionName, out currentCollection))
                     {
-                        await currentCollection.LoadAsync(collectionEntries.Entries);
+                        currentCollection.Load(collectionEntries.Entries);
                     }
                 }
             }
         }
 
-        public async Task SaveAsync()
+        public void Save()
         {
-            using (var archive = ZipFile.Open(ArchivePath, ZipArchiveMode.Update))
+            using (var archive = new ZipFile(ArchivePath))
             {
                 foreach (var collection in Collections.Values)
                 {
-                    await collection.SaveAsync(archive);
+                    collection.Save(archive);
                 }
             }
         }

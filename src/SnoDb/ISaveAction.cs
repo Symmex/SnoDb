@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO.Compression;
-using System.Threading.Tasks;
+﻿using Ionic.Zip;
 
 namespace SnoDb
 {
@@ -12,6 +7,6 @@ namespace SnoDb
     /// </summary>
     public interface ISaveAction
     {
-        Task SaveAsync(ZipArchive archive);
+        void Save(ZipFile archive);
     }
 }

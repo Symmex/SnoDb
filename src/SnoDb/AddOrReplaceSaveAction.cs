@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using System.IO.Compression;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Ionic.Zip;
 
 namespace SnoDb
 {
@@ -19,19 +18,10 @@ namespace SnoDb
             ItemJson = JsonConvert.SerializeObject(item);
         }
 
-        public async Task SaveAsync(ZipArchive archive)
+        public void Save(ZipFile archive)
         {
-            var entry = archive.GetEntry(ItemPath);
-            if(entry != null)
-            {
-                entry.Delete();
-            }
-
-            entry =  archive.CreateEntry(ItemPath);
-            using (var writer = new StreamWriter(entry.Open()))
-            {
-               await  writer.WriteAsync(ItemJson);
-            }
+            archive.RemoveEntry(ItemPath);
+            var entry =  archive.AddEntry(ItemPath, ItemJson);
         }
     }
 }

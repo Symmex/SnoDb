@@ -2,10 +2,9 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.IO.Compression;
 using System.Collections.Concurrent;
 using Newtonsoft.Json;
+using Ionic.Zip;
 
 namespace SnoDb
 {
@@ -22,16 +21,17 @@ namespace SnoDb
         {
             Database = database;
             Name = name;
+            IdSelector = idSelector;
         }
 
-        public async Task LoadAsync(IEnumerable<ZipArchiveEntry> entries)
+        public void Load(IEnumerable<ZipEntry> entries)
         {
             foreach (var entry in entries)
             {
                 string itemJson;
-                using (var reader = new StreamReader(entry.Open()))
+                using (var reader = new StreamReader(entry.OpenReader()))
                 {
-                    itemJson = await reader.ReadToEndAsync();
+                    itemJson = reader.ReadToEnd();
                 }
 
                 var item = JsonConvert.DeserializeObject<T>(itemJson);
@@ -68,11 +68,11 @@ namespace SnoDb
             SaveActions[id] = new RemoveSaveAction(itemPath);
         }
 
-        public async Task SaveAsync(ZipArchive archive)
+        public void Save(ZipFile archive)
         {
             foreach (var saveAction in SaveActions.Values)
             {
-                await saveAction.SaveAsync(archive);
+                saveAction.Save(archive);
             }
         }
     }

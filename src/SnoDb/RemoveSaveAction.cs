@@ -1,5 +1,4 @@
-﻿using System.IO.Compression;
-using System.Threading.Tasks;
+﻿using Ionic.Zip;
 
 namespace SnoDb
 {
@@ -12,13 +11,9 @@ namespace SnoDb
             ItemPath = itemPath;
         }
 
-        public Task SaveAsync(ZipArchive archive)
+        public void Save(ZipFile archive)
         {
-            var entry = archive.GetEntry(ItemPath);
-            if (entry != null)
-                entry.Delete();
-
-            return Task.CompletedTask;
+            archive.RemoveEntry(ItemPath);
         }
     }
 }
