@@ -15,7 +15,7 @@ namespace Symmex.SnoDb
         public AddOrReplaceSaveAction(string path, object item)
         {
             ItemPath = path;
-            ItemJson = JsonConvert.SerializeObject(item);
+            ItemJson = JsonConvert.SerializeObject(item, SnoDbConfig.DefaultSerializerSettings);
         }
 
         public void Save(ZipFile archive)

@@ -34,7 +34,7 @@ namespace Symmex.SnoDb
                     itemJson = reader.ReadToEnd();
                 }
 
-                var item = JsonConvert.DeserializeObject<T>(itemJson);
+                var item = JsonConvert.DeserializeObject<T>(itemJson, SnoDbConfig.DefaultSerializerSettings);
                 var id = IdSelector(item);
                 Items[id] = item;
             }
