@@ -10,7 +10,7 @@ namespace Symmex.SnoDb
     {
         public string Name { get; }
         public string DatabaseDirectory { get; }
-        private string ArchivePath { get; }
+        private ZipFile Archive { get; }
         private ConcurrentDictionary<string, ISnowCollection> Collections { get; } = new ConcurrentDictionary<string, ISnowCollection>();
 
         public SnoDatabase(string name)
@@ -24,7 +24,9 @@ namespace Symmex.SnoDb
             DatabaseDirectory = databaseDirectory;
 
             Directory.CreateDirectory(DatabaseDirectory);
-            ArchivePath = Path.Combine(DatabaseDirectory, $"{Name}.zip");
+
+            var archivePath = Path.Combine(DatabaseDirectory, $"{Name}.zip");
+            Archive = new ZipFile(archivePath);
         }
 
         private string GetCollectionName<T>()
@@ -51,41 +53,30 @@ namespace Symmex.SnoDb
 
         public void Load()
         {
-            if (!File.Exists(ArchivePath))
-            {
-                return;
-            }
+            var entriesByCollection = (from entry in Archive.Entries
+                                       let separatorIndex = entry.FileName.IndexOf('/')
+                                       let collectionName = entry.FileName.Substring(0, separatorIndex)
+                                       group entry by collectionName into g
+                                       select new { CollectionName = g.Key, Entries = g.ToList() });
 
-            using (var archive = new ZipFile(ArchivePath))
+            foreach (var collectionEntries in entriesByCollection)
             {
-                var entriesByCollection = (from entry in archive.Entries
-                                           let separatorIndex = entry.FileName.IndexOf('/')
-                                           let collectionName = entry.FileName.Substring(0, separatorIndex)
-                                           group entry by collectionName into g
-                                           select new { CollectionName = g.Key, Entries = g.ToList() });
-
-                foreach (var collectionEntries in entriesByCollection)
+                ISnowCollection currentCollection;
+                if (Collections.TryGetValue(collectionEntries.CollectionName, out currentCollection))
                 {
-                    ISnowCollection currentCollection;
-                    if (Collections.TryGetValue(collectionEntries.CollectionName, out currentCollection))
-                    {
-                        currentCollection.Load(collectionEntries.Entries);
-                    }
+                    currentCollection.Load(collectionEntries.Entries);
                 }
             }
         }
 
         public void Save()
         {
-            using (var archive = new ZipFile(ArchivePath))
+            foreach (var collection in Collections.Values)
             {
-                foreach (var collection in Collections.Values)
-                {
-                    collection.Save(archive);
-                }
-
-                archive.Save();
+                collection.Save(Archive);
             }
+
+            Archive.Save();
         }
 
         #region IDisposable Support
@@ -98,7 +89,9 @@ namespace Symmex.SnoDb
                 if (disposing)
                 {
                     Save();
+                    Archive.Dispose();
                 }
+
                 disposedValue = true;
             }
         }

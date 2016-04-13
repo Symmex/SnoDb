@@ -3,7 +3,7 @@
 namespace Symmex.SnoDb
 {
     /// <summary>
-    /// used for all save actions
+    /// Used for all save actions
     /// </summary>
     public interface ISaveAction
     {

@@ -51,6 +51,7 @@
     <Compile Include="AddOrReplaceSaveAction.cs" />
     <Compile Include="ISaveAction.cs" />
     <Compile Include="ISnowCollection.cs" />
+    <Compile Include="PersistenceMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveSaveAction.cs" />
     <Compile Include="SnoCollection.cs" />

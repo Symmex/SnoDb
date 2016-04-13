@@ -8,5 +8,6 @@ namespace Symmex.SnoDb
     {
         public static string DefaultDatabaseDirectory { get; set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"SnoDb\Databases\");
         public static JsonSerializerSettings DefaultSerializerSettings { get; set; } = new JsonSerializerSettings();
+        public static PersistenceMode PersistenceMode { get; set; }
     }
 }

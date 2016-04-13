@@ -51,6 +51,9 @@ namespace Symmex.SnoDb
             Items[id] = item;
             var itemPath = GetItemPath(item);
             SaveActions[id] = new AddOrReplaceSaveAction(itemPath, item);
+
+            if (SnoDbConfig.PersistenceMode == PersistenceMode.Instant)
+                Database.Save();
         }
 
         public string GetItemPath(T item)
@@ -66,6 +69,9 @@ namespace Symmex.SnoDb
 
             var itemPath = GetItemPath(item);
             SaveActions[id] = new RemoveSaveAction(itemPath);
+
+            if (SnoDbConfig.PersistenceMode == PersistenceMode.Instant)
+                Database.Save();
         }
 
         public void Save(ZipFile archive)
@@ -74,6 +80,8 @@ namespace Symmex.SnoDb
             {
                 saveAction.Save(archive);
             }
+
+            SaveActions.Clear();
         }
     }
 }
