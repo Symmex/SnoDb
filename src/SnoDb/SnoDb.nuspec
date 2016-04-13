@@ -12,6 +12,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Initial release.</releaseNotes>
-    <tags>snodb, db, databse, document, json</tags>
+    <tags>snodb, db, database, document, json</tags>
   </metadata>
 </package>
