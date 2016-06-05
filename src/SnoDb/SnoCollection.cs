@@ -52,7 +52,7 @@ namespace Symmex.SnoDb
             var itemPath = GetItemPath(item);
             SaveActions[id] = new AddOrReplaceSaveAction(itemPath, item);
 
-            if (SnoDbConfig.PersistenceMode == PersistenceMode.Instant)
+            if (SnoDbConfig.PersistenceMode == PersistenceMode.Immediate)
                 Database.Save();
         }
 
@@ -70,7 +70,7 @@ namespace Symmex.SnoDb
             var itemPath = GetItemPath(item);
             SaveActions[id] = new RemoveSaveAction(itemPath);
 
-            if (SnoDbConfig.PersistenceMode == PersistenceMode.Instant)
+            if (SnoDbConfig.PersistenceMode == PersistenceMode.Immediate)
                 Database.Save();
         }
 

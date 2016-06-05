@@ -2,7 +2,7 @@
 {
     public enum PersistenceMode
     {
-        Instant,
+        Immediate,
         Manual
     }
 }
