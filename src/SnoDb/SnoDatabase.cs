@@ -11,7 +11,7 @@ namespace Symmex.SnoDb
         public string Name { get; }
         public string DatabaseDirectory { get; }
         private ZipFile Archive { get; }
-        private ConcurrentDictionary<string, ISnowCollection> Collections { get; } = new ConcurrentDictionary<string, ISnowCollection>();
+        private ConcurrentDictionary<string, ISnoCollection> Collections { get; } = new ConcurrentDictionary<string, ISnoCollection>();
 
         public SnoDatabase(string name)
             : this(name, SnoDbConfig.DefaultDatabaseDirectory)
@@ -61,7 +61,7 @@ namespace Symmex.SnoDb
 
             foreach (var collectionEntries in entriesByCollection)
             {
-                ISnowCollection currentCollection;
+                ISnoCollection currentCollection;
                 if (Collections.TryGetValue(collectionEntries.CollectionName, out currentCollection))
                 {
                     currentCollection.Load(collectionEntries.Entries);
