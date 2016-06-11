@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnoDb", "SnoDb\SnoDb.csproj", "{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnoDb.Tests", "SnoDb.Tests\SnoDb.Tests.csproj", "{FB7A9F1C-5CD5-4269-9442-01B31C50AA1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC37D2A6-EF53-43A4-A81B-8FC38EABAD5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB7A9F1C-5CD5-4269-9442-01B31C50AA1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB7A9F1C-5CD5-4269-9442-01B31C50AA1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB7A9F1C-5CD5-4269-9442-01B31C50AA1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB7A9F1C-5CD5-4269-9442-01B31C50AA1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
