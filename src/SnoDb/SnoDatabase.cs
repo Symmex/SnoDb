@@ -12,6 +12,7 @@ namespace Symmex.SnoDb
         public string DatabaseDirectory { get; }
         private ZipFile Archive { get; }
         private ConcurrentDictionary<string, ISnoCollection> Collections { get; } = new ConcurrentDictionary<string, ISnoCollection>();
+        private bool IsLoaded { get; set; }
 
         public SnoDatabase(string name)
             : this(name, SnoDbConfig.DefaultDatabaseDirectory)
@@ -36,6 +37,8 @@ namespace Symmex.SnoDb
 
         public ISnoCollection<T> RegisterCollection<T, TId>(Func<T, TId> idSelector)
         {
+            EnsureLoaded();
+
             var collectionName = GetCollectionName<T>();
             var collection = new SnoCollection<T, TId>(this, collectionName, idSelector);
             Collections.TryAdd(collectionName, collection);
@@ -45,10 +48,18 @@ namespace Symmex.SnoDb
 
         public ISnoCollection<T> GetCollection<T>()
         {
+            EnsureLoaded();
+
             var collectionName = GetCollectionName<T>();
             var collection = Collections[collectionName];
 
             return (ISnoCollection<T>)collection;
+        }
+
+        private void EnsureLoaded()
+        {
+            if(!IsLoaded)
+                Load();
         }
 
         public void Load()
@@ -67,6 +78,8 @@ namespace Symmex.SnoDb
                     currentCollection.Load(collectionEntries.Entries);
                 }
             }
+
+            IsLoaded = true;
         }
 
         public void Save()
